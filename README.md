@@ -18,7 +18,7 @@
 - Generates 1000 customers and each customer gets 1-10 transactions with a relational key, and outputs two CSV files to this same directory. 
 - Change the args as you see fit:
 ```
-# args: (user csv headers?, how many people?, create transactions?, max transactions per customer?)
+# args: (csv headers?, how many rows?, create transactions?, max transactions per person?)
 args = (True, 1000, True, 10)
 ```
 
