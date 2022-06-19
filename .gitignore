@@ -1,3 +1,7 @@
+#our output files:
+output_people.csv
+output_transactions.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
