@@ -17,8 +17,8 @@ CREATE TABLE people (
     phone_number varchar(255),
     ssn varchar(255),
     allergies varchar(255),
-    blood_type varchar(255),
-    last_ipaddress varchar(255)
+    blood_type varchar(10),
+    last_ipaddress varchar(100)
     )
 
 CREATE TABLE transactions (
@@ -29,6 +29,6 @@ CREATE TABLE transactions (
     numberofitems int,
     productcode varchar(255),
     productcategory varchar(255),
-    cc_number varchar(255)
+    cc_number varchar(30)
     )
 
