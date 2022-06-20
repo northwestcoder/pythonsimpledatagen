@@ -23,6 +23,9 @@ with open('output_transactions.csv', 'w') as f:
 	f.write(newdata[1])
 	print("finished writing transaction data")
 
+with open('output_social.csv', 'w') as f:
+	f.write(newdata[2])
+	print("finished writing social interaction data")
 
 t_end = time.time()
 totaltime = t_end-t_start

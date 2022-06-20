@@ -1,18 +1,25 @@
 import string
 import random
 import os
+import datetime
 
+import core
 import inputs
 
 extrahandlers = {
-"account_type" : "AccountHandler",
-"phone_number" : "PhoneHandler",
-"job_type" : "JobTypeHandler",
-"cc_number" : "CCNumberHandler",
-"ssn" : "SsnHandler",
-"allergies" : "AllergyHandler",
-"blood_type" : "BloodTypeHandler",
-"last_ipaddress" : "IPAddressHandler"
+"account_type" 			: "AccountHandler",
+"phone_number" 			: "PhoneHandler",
+"job_type" 				: "JobTypeHandler",
+"cc_number" 			: "CCNumberHandler",
+"ssn" 					: "SsnHandler",
+"allergies" 			: "AllergyHandler",
+"blood_type" 			: "BloodTypeHandler",
+"last_ipaddress" 		: "IPAddressHandler",
+"social_last_uri" 		: "SocialLastUriHandler",
+"social_timestamp" 		: "SocialTimestampHandler",
+"social_ip" 			: "SocialIPAddressHandler",
+"social_sha256" 		: "SocialShaHandler",
+"social_uuid4" 			: "SocialUuid4Handler"
 }
 
 def AccountHandler():
@@ -35,6 +42,29 @@ def BloodTypeHandler():
 
 def IPAddressHandler():
 	return random.choice(inputs.df_ip_addresses)
+
+def SocialLastUriHandler():
+	return random.choice(inputs.df_uris)
+
+def SocialTimestampHandler():
+	random_datetime = core.trans_start_date + datetime.timedelta(seconds=random.randint(1,core.max_seconds))	
+	return str(random_datetime)
+
+def SocialIPAddressHandler():
+	return random.choice(inputs.df_ip_addresses)
+
+def SocialShaHandler():
+	return random.choice(inputs.df_sha256)
+
+def SocialUuid4Handler():
+	return random.choice(inputs.df_ip_addresses)
+
+def IPAddressHandler():
+	return random.choice(inputs.df_ip_addresses)
+
+def IPAddressHandler():
+	return random.choice(inputs.df_uuid4)
+
 
 # our handler map
 def extraHandlerMap(type):

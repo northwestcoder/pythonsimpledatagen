@@ -12,6 +12,11 @@ import inputs
 # 3. load a bunch of input/seed data into memory
 # 4. load some handlers into a handler map/memory
 
+#let's define a 'recent' timestamp range going back a max of 1800 days
+trans_start_date = datetime.datetime.now() - datetime.timedelta(days=1800)
+duration = datetime.datetime.now() - trans_start_date
+max_seconds = int(duration.total_seconds())
+
 coreColumns = [
 'customer_id',
 'gender',
@@ -29,7 +34,7 @@ coreColumns = [
 ]
 
 handlers = {
-"customer_id" : "coreNextCustomerID",
+"customer_id" : "nextId",
 "identity_bundle" : "coreIdentityBundle",
 "geolocation_bundle" : "coreGeolocationBundle",
 "birth_dt" : "birthDateHandler"
@@ -49,7 +54,7 @@ time_between_dates = birthday_end_date - birthday_start_date
 birthday_days_between_dates = time_between_dates.days
 
 # generates a 16 char random key
-def coreNextCustomerID(size=16, chars=string.ascii_lowercase + string.digits):
+def nextId(size=16, chars=string.ascii_lowercase + string.digits):
 	uniqueid = ''.join(random.choice(chars) for _ in range(size))
 	return uniqueid
 

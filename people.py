@@ -1,6 +1,7 @@
 import core
 import helpers
 import transactions
+import social
 
 quote				= "\""
 quotecomma			= "\","
@@ -24,6 +25,7 @@ def createData(headers: bool, rows: int, buildtransactions: bool, *args) -> str:
 
 	listOfNewRows = ""
 	listOfNewTransactions = ""
+	listOfNewSocialInteractions = ""
 
 	# if asked for headers, first we print out the core headers, followed by the extra ones
 	if headers:
@@ -41,13 +43,20 @@ def createData(headers: bool, rows: int, buildtransactions: bool, *args) -> str:
 
 		listOfNewRows += newline
 
-	# if asked for transactions (child records) we print out their headers
+	# if asked for transactions (child records) we print out their headers for transactions and social media interactions
 	if buildtransactions & headers:
 		for idx, item in enumerate(transactions.columnData):
 			listOfNewTransactions += quote + item + quote
 			if idx+1 != len(transactions.columnData):
 				listOfNewTransactions += comma
-		listOfNewTransactions += newline		
+		listOfNewTransactions += newline
+
+		listOfNewSocialInteractions += quote + "customer_id" + quotecomma + quote + "email" + quotecomma		
+		for idx, item in enumerate(social.columnData):
+			listOfNewSocialInteractions += quote + item + quote
+			if idx+1 != len(transactions.columnData):
+				listOfNewSocialInteractions += comma
+		listOfNewSocialInteractions += newline		
 
 	# start of main iter
 	rowcount = 0
@@ -82,7 +91,8 @@ def createData(headers: bool, rows: int, buildtransactions: bool, *args) -> str:
 		if buildtransactions:
 			maxrows = int(args[0])
 			listOfNewTransactions += transactions.generateTransactions(newid, maxrows)
+			listOfNewSocialInteractions += social.generateSocialInteractions(newid, maxrows, identity_bundle[4])
 
 		rowcount+=1
 
-	return listOfNewRows, listOfNewTransactions
+	return listOfNewRows, listOfNewTransactions, listOfNewSocialInteractions

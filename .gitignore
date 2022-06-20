@@ -1,6 +1,7 @@
 #our output files:
 output_people.csv
 output_transactions.csv
+output_social.csv
 scratch.py
 scratch.ipynb
 

@@ -32,3 +32,13 @@ CREATE TABLE transactions (
     cc_number varchar(30)
     )
 
+CREATE TABLE social (
+    customer_id varchar(255),
+    email varchar(255),
+    social_last_uri varchar(255),
+    social_timestamp timestamp without time zone,
+    social_ip varchar(255),
+    social_sha256 varchar(255),
+    social_uuid4 varchar(255)
+    )
+
