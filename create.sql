@@ -33,8 +33,8 @@ CREATE TABLE transactions (
     )
 
 CREATE TABLE social (
-    customer_id varchar(255),
-    email varchar(255),
+    social_customer_id varchar(255),
+    social_email varchar(255),
     social_last_uri varchar(255),
     social_timestamp timestamp without time zone,
     social_ip varchar(255),

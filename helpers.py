@@ -59,12 +59,6 @@ def SocialShaHandler():
 def SocialUuid4Handler():
 	return random.choice(i.df_ip_addresses)
 
-def IPAddressHandler():
-	return random.choice(i.df_ip_addresses)
-
-def IPAddressHandler():
-	return random.choice(i.df_uuid4)
-
 
 # our handler map
 def extraHandlerMap(type):
