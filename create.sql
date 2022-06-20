@@ -24,7 +24,7 @@ CREATE TABLE people (
 CREATE TABLE transactions (
     customer_id varchar(255),
     orderid varchar(255),
-    purchasedatetime date,
+    purchasedatetime timestamp without time zone,
     transactiontotal decimal,
     numberofitems int,
     productcode varchar(255),

@@ -19,12 +19,10 @@ columnData = [
 'productcategory',
 'cc_number']
 
-
-#let's define a 'recent' date range going back a max of 1800 days
-trans_start_date = datetime.date.today() - datetime.timedelta(days=1800)
-trans_end_date = datetime.date.today() - datetime.timedelta(days=1)
-time_between_dates = trans_end_date - trans_start_date
-trans_days_between_dates = time_between_dates.days
+#let's define a 'recent' timestamp range going back a max of 1800 days
+trans_start_date = datetime.datetime.now() - datetime.timedelta(days=1800)
+duration = datetime.datetime.now() - trans_start_date
+max_seconds = int(duration.total_seconds())
 
 def generateTransactions(customerid: str, maxtrans: int):
 
@@ -38,10 +36,8 @@ def generateTransactions(customerid: str, maxtrans: int):
 
 		newrow += quote + customerid + quotecomma
 		newrow += quote + core.coreNextCustomerID() + quotecomma
-
-		random_number_of_days = random.randrange(trans_days_between_dates)
-		random_date = trans_start_date + datetime.timedelta(days=random_number_of_days)		
-		newrow += quote + str(random_date) + quotecomma
+		random_datetime = trans_start_date + datetime.timedelta(seconds=random.randint(1,max_seconds))	
+		newrow += quote + str(random_datetime) + quotecomma
 		newrow += quote + str(transtotal) + quotecomma
 		newrow += quote + str(numitems) + quotecomma		
 
