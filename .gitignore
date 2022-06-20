@@ -1,6 +1,8 @@
 #our output files:
 output_people.csv
 output_transactions.csv
+scratch.py
+scratch.ipynb
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
