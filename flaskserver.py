@@ -21,10 +21,12 @@ import people
 
 app = Flask(__name__)
 
-static = people.createData(headers=True, rows=1000, buildtransactions=False)
+args = (True, 1000, True, 10)
+
+static = people.createData(*args)
 
 # this next route generates a var each time the route is called
-@app.route('/dynamic')
+@app.route('/dynamicpeople')
 def randomPayload():
 
 	payload = people.createData(headers=True, rows=1000, buildtransactions=False)
@@ -33,7 +35,17 @@ def randomPayload():
 
 # this one uses 'staticdata' created outside of the route, 
 # so it will remain stable for the lifetime of the flask invocation
-@app.route('/static')
-def staticPtermayload():
+@app.route('/staticpeople')
+def staticPayload():
 
 	return static[0]
+
+@app.route('/statictransactions')
+def staticPayloadTransactions():
+
+	return static[1]
+
+@app.route('/staticsocial')
+def staticPayloadSocial():
+
+	return static[2]	
