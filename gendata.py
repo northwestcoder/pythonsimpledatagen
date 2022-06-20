@@ -2,10 +2,8 @@ import time
 
 import people
 
-
 # let's use a low tech timer to see how long the data gen takes
 t_start = time.time()
-
 
 # args: (user csv headers?, how many people?, create transactions?, how many transactions?)
 args = (True, 1000, True, 10)

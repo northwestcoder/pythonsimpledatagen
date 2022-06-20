@@ -1,8 +1,7 @@
 import random
 import datetime 
 
-import core
-import helpers
+import helpers as h
 
 quote 			= "\""
 quotecomma 		= "\","
@@ -28,7 +27,7 @@ def generateSocialInteractions(customerid: str, maxinteractions: int, email: str
 		newrow += quote + email + quotecomma
 
 		for idx, item in enumerate(columnData):					
-			newrow += quote + helpers.extraHandlerMap(item) + quote
+			newrow += quote + h.extraHandlerMap(item) + quote
 			newrow += comma if idx+1 != len(columnData) else ""
 		#6 newline if not last line
 		if rowcount != maxinteractions:														

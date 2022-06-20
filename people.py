@@ -1,14 +1,9 @@
-import core
-import helpers
+import core as c
+import helpers as h
 import transactions
 import social
 
-quote				= "\""
-quotecomma			= "\","
-comma				= ","
-newline				= "\n"
-
-# if you append new columns, you need to ensure you have defined a handler for these in helpers.py
+# if you append new columns, you need to ensure you have defined a handler for each of these in helpers.py
 # we have provided a few as examples
 
 extraColumns = [ 
@@ -29,61 +24,61 @@ def createData(headers: bool, rows: int, buildtransactions: bool, *args) -> str:
 
 	# if asked for headers, first we print out the core headers, followed by the extra ones
 	if headers:
-		for idx, item in enumerate(core.coreColumns):
-			listOfNewRows += quote + item + quote
-			if idx+1 != len(core.coreColumns):
-				listOfNewRows += comma
-	
+		#core columns
+		for idx, item in enumerate(c.coreColumns):
+			listOfNewRows += c.quote + item + c.quote
+			if idx+1 != len(c.coreColumns):
+				listOfNewRows += c.comma
+		#extra columns
 		if len(extraColumns) > 0:
-			listOfNewRows += comma
+			listOfNewRows += c.comma
 		for idx, item in enumerate(extraColumns):
-			listOfNewRows +=quote + item + quote
+			listOfNewRows +=c.quote + item + c.quote
 			if idx+1 != len(extraColumns):
-				listOfNewRows += comma
+				listOfNewRows += c.comma
+		listOfNewRows += c.newline
 
-		listOfNewRows += newline
-
-	# if asked for transactions (child records) we print out their headers for transactions and social media interactions
+	# if asked for transactions (related child records) we print out their headers for transactions and social media interactions
 	if buildtransactions & headers:
 		for idx, item in enumerate(transactions.columnData):
-			listOfNewTransactions += quote + item + quote
+			listOfNewTransactions += c.quote + item + c.quote
 			if idx+1 != len(transactions.columnData):
-				listOfNewTransactions += comma
-		listOfNewTransactions += newline
+				listOfNewTransactions += c.comma
+		listOfNewTransactions += c.newline
 
-		listOfNewSocialInteractions += quote + "customer_id" + quotecomma + quote + "email" + quotecomma		
+		listOfNewSocialInteractions += c.quote + "customer_id" + c.quote + c.quotecomma + "email" + c.quotecomma		
 		for idx, item in enumerate(social.columnData):
-			listOfNewSocialInteractions += quote + item + quote
+			listOfNewSocialInteractions += c.quote + item + c.quote
 			if idx+1 != len(transactions.columnData):
-				listOfNewSocialInteractions += comma
-		listOfNewSocialInteractions += newline		
+				listOfNewSocialInteractions += c.comma
+		listOfNewSocialInteractions += c.newline		
 
 	# start of main iter
 	rowcount = 0
 	for newrow in range(rows):
 		newrow = ""
-		identity_bundle = core.handlerMap("identity_bundle")
-		geolocation_bundle = core.handlerMap("geolocation_bundle")
-		newid = core.handlerMap("customer_id")
-		birthdate = str(core.handlerMap("birth_dt"))
+		identity_bundle = c.handlerMap("identity_bundle")
+		geolocation_bundle = c.handlerMap("geolocation_bundle")
+		newid = c.handlerMap("customer_id")
+		birthdate = str(c.handlerMap("birth_dt"))
 
 		# 1 the ID
-		newrow+= quote + newid + quotecomma								
+		newrow+= c.quote + newid + c.quotecomma								
 		# 2 the identity info
 		for item in range(len(identity_bundle)):						
-			newrow+= quote + identity_bundle[item] + quotecomma
+			newrow+= c.quote + identity_bundle[item] + c.quotecomma
 		# 3 the geo info
 		for item in range(len(geolocation_bundle)):						
-			newrow+= quote + geolocation_bundle[item] + quotecomma
+			newrow+= c.quote + geolocation_bundle[item] + c.quotecomma
 		# 4 birthdate
-		newrow+= quote + birthdate + quotecomma							
+		newrow+= c.quote + birthdate + c.quotecomma							
 		# 5 any extra columns you have defined
 		for idx, item in enumerate(extraColumns):					
-			newrow += quote + helpers.extraHandlerMap(item) + quote
-			newrow += comma if idx+1 != len(extraColumns) else ""
+			newrow += c.quote + h.extraHandlerMap(item) + c.quote
+			newrow += c.comma if idx+1 != len(extraColumns) else ""
 		#6 newline if not last line
 		if rowcount != rows:														
-			newrow+= newline
+			newrow+= c.newline
 		
 		listOfNewRows+= newrow
 
