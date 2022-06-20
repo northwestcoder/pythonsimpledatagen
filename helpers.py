@@ -1,40 +1,70 @@
 import string
 import random
 import os
+import datetime
 
-import inputs
+import core as c
+import inputs as i
 
 extrahandlers = {
-"account_type" : "AccountHandler",
-"phone_number" : "PhoneHandler",
-"job_type" : "JobTypeHandler",
-"cc_number" : "CCNumberHandler",
-"ssn" : "SsnHandler",
-"allergies" : "AllergyHandler",
-"blood_type" : "BloodTypeHandler",
-"last_ipaddress" : "IPAddressHandler"
+"account_type" 			: "AccountHandler",
+"phone_number" 			: "PhoneHandler",
+"job_type" 				: "JobTypeHandler",
+"cc_number" 			: "CCNumberHandler",
+"ssn" 					: "SsnHandler",
+"allergies" 			: "AllergyHandler",
+"blood_type" 			: "BloodTypeHandler",
+"last_ipaddress" 		: "IPAddressHandler",
+"social_last_uri" 		: "SocialLastUriHandler",
+"social_timestamp" 		: "SocialTimestampHandler",
+"social_ip" 			: "SocialIPAddressHandler",
+"social_sha256" 		: "SocialShaHandler",
+"social_uuid4" 			: "SocialUuid4Handler"
 }
 
 def AccountHandler():
-	return random.choice(inputs.df_account_types)
+	return random.choice(i.df_account_types)
 
 def PhoneHandler():
-	return random.choice(inputs.df_phones)
+	return random.choice(i.df_phones)
 
 def JobTypeHandler():
-	return random.choice(inputs.df_jobs)
+	return random.choice(i.df_jobs)
 
 def SsnHandler():
 	return str(random.randint(100,999)) + "-" + str(random.randint(1,99)) + "-" + str(random.randint(1000,9999))
 
 def AllergyHandler():
-	return random.choice(inputs.df_allergies)
+	return random.choice(i.df_allergies)
 
 def BloodTypeHandler():
-	return random.choice(inputs.df_bloodtypes)
+	return random.choice(i.df_bloodtypes)
 
 def IPAddressHandler():
-	return random.choice(inputs.df_ip_addresses)
+	return random.choice(i.df_ip_addresses)
+
+def SocialLastUriHandler():
+	return random.choice(i.df_uris)
+
+def SocialTimestampHandler():
+	random_datetime = c.trans_start_date + datetime.timedelta(seconds=random.randint(1,c.max_seconds))	
+	return str(random_datetime)
+
+def SocialIPAddressHandler():
+	return random.choice(i.df_ip_addresses)
+
+def SocialShaHandler():
+	return random.choice(i.df_sha256)
+
+def SocialUuid4Handler():
+	return random.choice(i.df_ip_addresses)
+
+def IPAddressHandler():
+	return random.choice(i.df_ip_addresses)
+
+def IPAddressHandler():
+	return random.choice(i.df_uuid4)
+
 
 # our handler map
 def extraHandlerMap(type):

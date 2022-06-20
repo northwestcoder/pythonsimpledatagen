@@ -4,13 +4,24 @@ import time
 import string
 import os
 
-import inputs
+import inputs as i
 
 # this file does a few things
 # 1. creates an identity bundle, 
 # 2. creates a geolocation bundle, 
 # 3. load a bunch of input/seed data into memory
 # 4. load some handlers into a handler map/memory
+
+#let's define a 'recent' timestamp range going back a max of 1800 days
+trans_start_date = datetime.datetime.now() - datetime.timedelta(days=1800)
+duration = datetime.datetime.now() - trans_start_date
+max_seconds = int(duration.total_seconds())
+
+#this is for raw creation of csv files
+quote				= "\""
+quotecomma			= "\","
+comma				= ","
+newline				= "\n"
 
 coreColumns = [
 'customer_id',
@@ -29,7 +40,7 @@ coreColumns = [
 ]
 
 handlers = {
-"customer_id" : "coreNextCustomerID",
+"customer_id" : "nextId",
 "identity_bundle" : "coreIdentityBundle",
 "geolocation_bundle" : "coreGeolocationBundle",
 "birth_dt" : "birthDateHandler"
@@ -49,7 +60,7 @@ time_between_dates = birthday_end_date - birthday_start_date
 birthday_days_between_dates = time_between_dates.days
 
 # generates a 16 char random key
-def coreNextCustomerID(size=16, chars=string.ascii_lowercase + string.digits):
+def nextId(size=16, chars=string.ascii_lowercase + string.digits):
 	uniqueid = ''.join(random.choice(chars) for _ in range(size))
 	return uniqueid
 
@@ -62,23 +73,23 @@ def coreIdentityBundle():
 	gender = "F" if randomlySelected(6, 11) else "M"
 	identity.append(gender)
 
-	prefix = random.choice(inputs.df_prefix_female) if gender == "F" else random.choice(inputs.df_prefix_male)
+	prefix = random.choice(i.df_prefix_female) if gender == "F" else random.choice(i.df_prefix_male)
 	identity.append(prefix)
 
-	firstname = random.choice(inputs.df_firstnames_female) if gender == "F" else random.choice(inputs.df_firstnames_male)
+	firstname = random.choice(i.df_firstnames_female) if gender == "F" else random.choice(i.df_firstnames_male)
 	identity.append(firstname)
 
-	lastname = random.choice(inputs.df_lastnames)
+	lastname = random.choice(i.df_lastnames)
 	identity.append(lastname)
 	
-	employment = random.choice(inputs.df_companies)
-	temptld = random.choice(inputs.df_tld)
+	employment = random.choice(i.df_companies)
+	temptld = random.choice(i.df_tld)
 
 	# out of 100, what are we going to do for a variety of emails?
 	dice = random.randint(1,100)
 	if dice >= 75:
 		# email gen random word plus first name
-		email = ''.join(random.choice(inputs.df_randowords)) + "_" + firstname.lower() + "@" + ''.join(e for e in employment if e.isalnum()).lower() + '.' + temptld
+		email = ''.join(random.choice(i.df_randowords)) + "_" + firstname.lower() + "@" + ''.join(e for e in employment if e.isalnum()).lower() + '.' + temptld
 	elif dice >= 50:
 		# FIRST AND LAST NAME
 		email = firstname.lower() + lastname.lower() + "@" + ''.join(e for e in employment if e.isalnum()).lower() + '.' + temptld
@@ -97,12 +108,12 @@ def coreIdentityBundle():
 #  generates an geolocation bundle, defined as: "address, city, state, postalcode"
 def coreGeolocationBundle():
 	geolocation = []
-	geolocation.append( str(random.randint(100,9999)) + " " + random.choice(inputs.df_streetnames))
-	citystatecombo = random.choice(inputs.df_city_county_state).split(',')
+	geolocation.append( str(random.randint(100,9999)) + " " + random.choice(i.df_streetnames))
+	citystatecombo = random.choice(i.df_city_county_state).split(',')
 	geolocation.append(citystatecombo[0])
 	geolocation.append(citystatecombo[1])
 	geolocation.append(citystatecombo[2])
-	geolocation.append(random.choice(inputs.df_postalcodes))
+	geolocation.append(random.choice(i.df_postalcodes))
 	return geolocation
 
 def birthDateHandler():

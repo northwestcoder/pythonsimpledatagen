@@ -1,8 +1,11 @@
 #our output files:
 output_people.csv
 output_transactions.csv
+output_social.csv
 scratch.py
 scratch.ipynb
+
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
