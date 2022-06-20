@@ -9,8 +9,8 @@ import inputs as i
 # this file does a few things
 # 1. creates an identity bundle, 
 # 2. creates a geolocation bundle, 
-# 3. load a bunch of input/seed data into memory
-# 4. load some handlers into a handler map/memory
+# 3. loads a bunch of input/seed data into memory
+# 4. loads some handlers into a handler map/memory
 
 #let's define a 'recent' timestamp range going back a max of 1800 days
 trans_start_date = datetime.datetime.now() - datetime.timedelta(days=1800)
@@ -23,6 +23,7 @@ quotecomma			= "\","
 comma				= ","
 newline				= "\n"
 
+#these are our required core columns for the people.csv file
 coreColumns = [
 'customer_id',
 'gender',
@@ -39,6 +40,7 @@ coreColumns = [
 'birth_dt'
 ]
 
+#the following four handlers deal with all of the above columns
 handlers = {
 "customer_id" : "nextId",
 "identity_bundle" : "coreIdentityBundle",
@@ -46,6 +48,7 @@ handlers = {
 "birth_dt" : "birthDateHandler"
 }
 
+#random generator that takes input
 def randomlySelected(chanceof, range):
 	# e.g. if 6 out of 13 chance odds
 	if random.randrange(range) < chanceof:
@@ -54,10 +57,11 @@ def randomlySelected(chanceof, range):
 		return False
 
 #static and relative dates for birthdays
-birthday_start_date = datetime.date.today() - datetime.timedelta(days=27300)
-birthday_end_date = datetime.date.today() - datetime.timedelta(days=5096)
-time_between_dates = birthday_end_date - birthday_start_date
-birthday_days_between_dates = time_between_dates.days
+earliest_possible_birthday = datetime.date.today() - datetime.timedelta(days=27300)
+
+#birthday_end_date = datetime.date.today() - datetime.timedelta(days=5096)
+#time_between_dates = birthday_end_date - birthday_start_date
+#birthday_days_between_dates = time_between_dates.days
 
 # generates a 16 char random key
 def nextId(size=16, chars=string.ascii_lowercase + string.digits):
@@ -116,10 +120,11 @@ def coreGeolocationBundle():
 	geolocation.append(random.choice(i.df_postalcodes))
 	return geolocation
 
+# picks a random birthday
 def birthDateHandler():
-	random_number_of_days = random.randrange(birthday_days_between_dates)
-	random_date = birthday_start_date + datetime.timedelta(days=random_number_of_days)		
-	return random_date
+	random_birthdate = earliest_possible_birthday + datetime.timedelta(days=random.randint(5096,27300))		
+	return random_birthdate
+
 
 def handlerMap(type):
 	return globals()[handlers.get(type)]()
