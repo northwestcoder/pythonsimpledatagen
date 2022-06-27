@@ -11,7 +11,7 @@ CREATE TABLE people (
     county varchar(255),
     state varchar(255),
     postal_code varchar(255),
-    birth_dt varchar(255),
+    birth_dt date,
     job_type varchar(255),
     account_type varchar(255),
     phone_number varchar(255),
@@ -24,7 +24,7 @@ CREATE TABLE people (
 CREATE TABLE transactions (
     customer_id varchar(255),
     orderid varchar(255),
-    purchasedatetime timestamp without time zone,
+    purchasedatetime varchar(255),
     transactiontotal decimal,
     numberofitems int,
     productcode varchar(255),
@@ -36,7 +36,7 @@ CREATE TABLE social (
     social_customer_id varchar(255),
     social_email varchar(255),
     social_last_uri varchar(255),
-    social_timestamp timestamp without time zone,
+    social_timestamp varchar(255),
     social_ip varchar(255),
     social_sha256 varchar(255),
     social_uuid4 varchar(255)

@@ -26,7 +26,7 @@ def generateTransactions(customerid: str, maxtrans: int):
 		newrow += c.quote + customerid + c.quotecomma
 		newrow += c.quote + c.nextId() + c.quotecomma
 		random_datetime = c.trans_start_date + datetime.timedelta(seconds=random.randint(1,c.max_seconds))	
-		newrow += c.quote + str(random_datetime) + c.quotecomma
+		newrow += c.quote + str(random_datetime.replace(microsecond=0)) + c.quotecomma
 		newrow += c.quote + str(transtotal) + c.quotecomma
 		newrow += c.quote + str(numitems) + c.quotecomma		
 

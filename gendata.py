@@ -6,7 +6,7 @@ import people
 t_start = time.time()
 
 # args: (user csv headers?, how many people?, create transactions?, how many transactions?)
-args = (True, 1000, True, 10)
+args = (True, 10000, True, 10)
 
 newdata = people.createData(*args)
 

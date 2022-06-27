@@ -48,7 +48,7 @@ def SocialLastUriHandler():
 
 def SocialTimestampHandler():
 	random_datetime = c.trans_start_date + datetime.timedelta(seconds=random.randint(1,c.max_seconds))	
-	return str(random_datetime)
+	return str(random_datetime.replace(microsecond=0))
 
 def SocialIPAddressHandler():
 	return random.choice(i.df_ip_addresses)

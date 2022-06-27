@@ -44,6 +44,20 @@ def createData(headers: bool, rows: int, buildtransactions: bool, *args) -> str:
 				listOfNewRows += c.comma
 		listOfNewRows += c.newline
 
+	# if asked for transaction and social data (related child records) we print out their headers first, if headers is True, 
+	if buildtransactions & headers:
+		for idx, item in enumerate(transactions.columnData):
+			listOfNewTransactions += c.quote + item + c.quote
+			if idx+1 != len(transactions.columnData):
+				listOfNewTransactions += c.comma
+		listOfNewTransactions += c.newline
+
+		for idx, item in enumerate(social.columnData):
+			listOfNewSocialInteractions += c.quote + item + c.quote
+			if idx+1 != len(social.columnData):
+				listOfNewSocialInteractions += c.comma
+		listOfNewSocialInteractions += c.newline
+
 	# done with people.csv headers, now start the main iter
 	rowcount = 0
 	for newrow in range(rows):
@@ -74,20 +88,7 @@ def createData(headers: bool, rows: int, buildtransactions: bool, *args) -> str:
 		
 		listOfNewRows+= newrow
 
-		# if asked for transaction and social data (related child records) we print out their headers first, if headers is True, 
-		# and then we generate the data
-		if buildtransactions & headers:
-			for idx, item in enumerate(transactions.columnData):
-				listOfNewTransactions += c.quote + item + c.quote
-				if idx+1 != len(transactions.columnData):
-					listOfNewTransactions += c.comma
-			listOfNewTransactions += c.newline
 
-			for idx, item in enumerate(social.columnData):
-				listOfNewSocialInteractions += c.quote + item + c.quote
-				if idx+1 != len(social.columnData):
-					listOfNewSocialInteractions += c.comma
-			listOfNewSocialInteractions += c.newline
 
 		if buildtransactions:
 			maxrows = int(args[0])
