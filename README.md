@@ -15,7 +15,7 @@
 ### gendata.py
 
 - Main caller for command line purposes. 
-- Generates 1000 customers and each customer gets 1-10 transactions with a relational key, and outputs two CSV files to this same directory. 
+- By default, generates 1000 customers and each customer gets 1-10 transactions with a relational key, and outputs two CSV files to this same directory. 
 - Change the args as you see fit:
 ```
 # args: (csv headers?, how many rows?, create transactions?, max transactions per person?)
